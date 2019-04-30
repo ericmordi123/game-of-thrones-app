@@ -5,14 +5,30 @@
     Throne, while other families fight for independence from it. It opens with additional threats in the icy North and Essos in the east. Showrunner David Benioff jokingly suggested "The Sopranos in Middle-earth" as Game of Thrones' tagline, referring
     to its intrigue-filled plot and dark tone in a fantasy setting of magic and dragons. In a 2012 study, out of 40 recent TV drama shows, Game of Thrones ranked second in deaths per episode, averaging 14 deaths.</p>
 
-{% for member in company_data %}
-<div class="row featurette">
-    <div class="col-md-7">
-        <h3>{{ member.name }}</h3>
-        <p>{{ member.description }}</p>
-    </div>
-    <div class="col-md-5">
-        <img class="featurette-image img-responsive" src="{{ member.image_source }}" alt="Picture of {{ member.name }}">
-    </div>
-</div>
-<hr class="featurette-divider"> {% endfor %} {% endblock %}
+ {% for member in company_data %} 
+        {% if loop.index % 2 != 0 %}
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h3><a href="/about/{{ member.url }}">{{ loop.index }}. {{ member.name }}</a></h3>
+                    <p>{{ member.description }}</p>
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-responsive" src="{{ member.image_source }}" alt="Picture of {{ member.name }}">
+                </div>
+            </div>
+        {% else %}
+            <div class="row featurette">
+                <div class="col-md-5">
+                    <img class="featurette-image img-responsive" src="{{ member.image_source }}" alt="Picture of {{ member.name }}">
+                </div>
+                <div class="col-md-7">
+                    <h3><a href="/about/{{ member.url }}">{{ loop.index }}. {{ member.name }}</a></h3>
+                    <p>{{ member.description }}</p>
+                </div>
+            </div>
+        {% endif %} 
+        {% if loop.index != 11 %}
+            <hr class="featurette-divider"> 
+        {% endif %} 
+    {% endfor %} 
+{% endblock %}
